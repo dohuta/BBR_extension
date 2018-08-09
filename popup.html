@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<!--This extension is for study purposes. Created by Dohuta - 2018-->
+
+<head>
+    <style>
+        .image-center {
+            display: block;
+            margin: 15px auto 5px auto;
+        }
+        
+        .content {
+            width: 220px;
+            padding: 5px;
+            margin: 5px 0;
+        }
+        
+        .label-text {
+            display: inline;
+        }
+        /*  switch zone  */
+        
+        .switch {
+            float: right;
+            position: relative;
+            display: block;
+            width: 35px;
+            height: 20px;
+        }
+        
+        .switch input {
+            display: none;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+        
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+        
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+        
+        input:checked+.slider:before {
+            -webkit-transform: translateX(15px);
+            -ms-transform: translateX(15px);
+            transform: translateX(15px);
+        }
+        
+        .slider.round {
+            border-radius: 34px;
+        }
+        
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        /*  input zone  */
+        
+        .me-input {
+            border: 1px solid #d3d3d3;
+            border-radius: 25px;
+            padding: 3px 7px;
+        }
+        
+        .input-zone {
+            width: 190px;
+            display: table;
+            margin: 5px auto 5px auto;
+            padding: 15px;
+            border: 1px solid #d3d3d3;
+            border-radius: 5px;
+        }
+        
+        .buttons {
+            display: grid;
+        }
+        
+        .btn:link,
+        input[type=button],
+        input[type=button]:active {
+            padding: 5px 20px;
+            font-weight: 400;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.2s, border 0.2s, color 0.2s;
+            background-color: #ffffff;
+            border: 1px solid #229D01;
+            color: #135C00;
+            display: block;
+        }
+        
+        input[type="button"]:disabled {
+            background-color: #e4e4e4;
+            border: 1px solid rgb(182, 182, 182);
+            color: rgb(167, 167, 167);
+        }
+        
+        .btn:hover,
+        .btn:active {
+            background-color: #229D01;
+            border: 1px solid #229D01;
+            color: rgb(255, 255, 255);
+        }
+    </style>
+</head>
+
+<body>
+    <img class="image-center" src="/images/logo48.png">
+    <p class="content">This extension will let you bypass the captcha and automatically log into Huflit's OAA website.</p>
+    <!--<p class="content">If this is not working, click Refresh or contact me!</p>-->
+    <div class="input-zone">
+        <div style="margin-bottom: 10px">
+            <h3 class="label-text">Auto-login</h3>
+            <label class="switch">
+                <input type="checkbox" id="btn-toggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div>
+            <div style="display: inline-block;">
+                <label>ID: </label>
+                <input class="me-input" type="text" id="accID" disabled>
+            </div>
+            <div style="display: inline-block; margin-top: 5px">
+                <label>Pwd: </label>
+                <input class="me-input" type="password" id="accPWD" disabled>
+            </div>
+            <div class="buttons">
+                <!--<input type="button" class="btn" id="btn-reload" style="float: left; margin: 15px 5px 5px 5px;" value="Refresh">-->
+                <input type="button" class="btn" id="btn-save" style="float: right; margin: 15px 5px 5px 5px;" value="Save" disabled>
+                <p id="announce" style="text-align: center; margin: auto;"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="content">Created by Dohuta. For study purposes.<br>v3.3.4</p>
+    <script src="popupCore.js"></script>
+</body>
+
+</html>

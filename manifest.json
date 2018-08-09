@@ -1,0 +1,45 @@
+{
+    "name": "BBR - Bypass the bike-parking round",
+    "version": "3.3.4",
+    "description": "Automatic filling captcha and login on Huflit OAA website",
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "storage",
+        "system.cpu",
+        "system.memory"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/logo16.png",
+            "32": "images/logo32.png",
+            "48": "images/logo48.png",
+            "128": "images/logo128.png"
+        }
+    },
+    "options_page": "options.html",
+    "content_scripts": [{
+        "matches": [
+            "http://daotao.huflit.edu.vn/*"
+        ],
+        "run_at": "document_end",
+        "all_frames": true,
+        "js": [
+            "engine.js"
+        ]
+    }],
+    "icons": {
+        "16": "images/logo16.png",
+        "32": "images/logo32.png",
+        "48": "images/logo48.png",
+        "128": "images/logo128.png"
+    },
+    "manifest_version": 2
+}
