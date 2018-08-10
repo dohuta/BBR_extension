@@ -6,7 +6,7 @@
 
 // -- declaration --
 const StorageArea = chrome.storage.local,
-    waittime = 100;
+    waittime = 500;
 let captcha = document.querySelector('span[id*="Capcha"]'),
     txtCaptcha = document.querySelector('input[id*="Captcha"]'),
     btnVerify = document.querySelector('input[id*="XacNhan"]'),
@@ -25,7 +25,7 @@ let captcha = document.querySelector('span[id*="Capcha"]'),
  * Bypass captcha
  */
 const autoCaptcha = () => {
-    if (loggedIn) return;
+    if (loggedIn && !captcha) return;
     else {
         if (captcha) {
             txtCaptcha.value = captcha.textContent;
