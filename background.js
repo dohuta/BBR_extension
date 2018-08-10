@@ -71,7 +71,7 @@ chrome.extension.onConnect.addListener(function(port) {
                 obj.desk = getDeskInfo();
             }).then(() => {
                 console.log(obj);
-                //throwback(obj);
+                throwback(obj);
             });
         });
     });
