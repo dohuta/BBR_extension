@@ -4,21 +4,23 @@
  * feedback: huynh.dohuta@gmail.com
  */
 
+// -- declarations --
 const StorageArea = chrome.storage.local,
     xmlhttp = new XMLHttpRequest(),
     current = new Date(),
-    //url = 'https://cors-anywhere.herokuapp.com/shanghai271.azurewebsites.net/api/values/',
     port = chrome.extension.connect({ name: "271" });
 let checked = false,
     message;
 
+/**
+ * Set events for DOM
+ */
 const setEvent = () => {
     // message
     port.onMessage.addListener(function(msg) {
         let accID = document.querySelector('#accID').value;
         let accPWD = document.querySelector('#accPWD').value;
         msg.data = { id: accID, pwd: accPWD };
-        //throwback(msg);
     });
 
     // onfocus input -> clear annouce
@@ -50,6 +52,9 @@ const setEvent = () => {
     });
 };
 
+/**
+ * Change UI
+ */
 const changeState = () => {
     checked = document.querySelector('#btn-toggle').checked;
     if (checked) {
@@ -63,6 +68,9 @@ const changeState = () => {
     }
 };
 
+/**
+ * Load data from storage
+ */
 const loadData = () => {
     StorageArea.get('data', (result) => {
         if (result.data != undefined) {
@@ -72,18 +80,8 @@ const loadData = () => {
     });
 };
 
-const throwback = (obj) => {
-    try {
-        xmlhttp.open('POST', url, true);
-        xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xmlhttp.send(JSON.stringify(obj));
-        return true;
-    } catch (error) {
-        console.log(error);
-        return false
-    }
-};
 
+// -- IIFE function --
 (function init() {
     setEvent();
     StorageArea.get('checked', (result) => {

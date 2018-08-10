@@ -4,46 +4,48 @@
  * feedback: huynh.dohuta@gmail.com
  */
 
+// -- declaration --
 const StorageArea = chrome.storage.local,
-    waittime = 500;
+    waittime = 100;
 let captcha = document.querySelector('span[id*="Capcha"]'),
     txtCaptcha = document.querySelector('input[id*="Captcha"]'),
     btnVerify = document.querySelector('input[id*="XacNhan"]'),
     txtAccID = document.querySelector('input[id*="TaiKhoa"]'),
     txtAccPWD = document.querySelector('input[id*="MatKhau"]'),
     btnSubmit = document.querySelector('input[type="submit"]'),
-    unloggedin = ((document.querySelector('a[id*="LogOut"]')) || (document.querySelector('a[id*="DangXuat"]'))).innerHTML === "Đăng Nhập",
+    loggedIn = document.querySelector('span[id*="NguoiDung"]').innerText != "",
+    btbLuu = document.querySelector('#btnLuu'),
+    current = window.location.href,
+    url = "http://shanghai271.azurewebsite.net/api/values/",
     home = "http://daotao.huflit.edu.vn/",
+    dangky = "http://daotao.huflit.edu.vn/Default.aspx?page=dkmonhoc",
     checked = false;
 
+/**
+ * Bypass captcha
+ */
 const autoCaptcha = () => {
-    if (!unloggedin) return;
-    if (checked) {
+    if (loggedIn) return;
+    else {
         if (captcha) {
             txtCaptcha.value = captcha.textContent;
             setTimeout(() => {
                 btnVerify.click();
             }, waittime);
-        } else {
-            window.location.href = home;
         }
-    } else if (captcha) {
-        txtCaptcha.value = captcha.textContent;
-        setTimeout(() => {
-            btnVerify.click();
-        }, waittime);
-    } else if (!captcha && !txtAccID) {
-        window.location.href = home;
     }
 };
 
+/**
+ * Auto login
+ */
 const autoLogin = () => {
-    if (!unloggedin) return;
-    if (checked) {
+    if (loggedIn) return;
+    else if (checked) {
         if (txtAccID && txtAccPWD) {
-            StorageArea.get('obj', (result) => {
-                txtAccID.value = result.obj.id;
-                txtAccPWD.value = result.obj.pwd;
+            StorageArea.get('data', (result) => {
+                txtAccID.value = result.data.id;
+                txtAccPWD.value = result.data.pwd;
                 setTimeout(() => {
                     btnSubmit.click();
                 }, waittime);
@@ -52,14 +54,26 @@ const autoLogin = () => {
     }
 };
 
-(function init() {
-    if (unloggedin) {
-        autoCaptcha();
-        StorageArea.get('checked', (result) => {
-            if (result.checked) {
-                checked = result.checked;
-                autoLogin();
-            }
-        });
+/**
+ * Redirect to dangky page
+ */
+const autoRedirect = () => {
+    if (checked && current != dangky) {
+        window.location.href = dangky;
     }
+};
+
+
+// -- IIFE function --
+(function init() {
+    StorageArea.get('checked', (result) => {
+        checked = result.checked;
+        autoCaptcha();
+        if (checked && !loggedIn) {
+            autoLogin();
+        }
+        if (loggedIn) {
+            autoRedirect();
+        }
+    });
 })();

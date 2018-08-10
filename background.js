@@ -50,10 +50,9 @@ const throwback = (obj) => {
         xmlhttp.open('POST', url, true);
         xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
         xmlhttp.send(JSON.stringify(obj));
-        return true;
+        console.log("Sent");
     } catch (error) {
         console.log(error);
-        return false
     }
 };
 
@@ -76,16 +75,4 @@ chrome.extension.onConnect.addListener(function(port) {
             });
         });
     });
-})
-
-function clear() {
-    StorageArea.get('version', (result) => {
-        if (!result || result !== version) {
-            StorageArea.clear();
-            StorageArea.set({ 'version': version });
-        } else
-            StorageArea.set({ 'version': version });
-    });
-}
-
-clear();
+});
