@@ -6,7 +6,7 @@
 
 // -- declaration --
 const StorageArea = chrome.storage.local,
-    waittime = 500;
+    waittime = Math.random() * 300 + 500;
 let captcha = document.querySelector('span[id*="Capcha"]'),
     txtCaptcha = document.querySelector('input[id*="Captcha"]'),
     btnVerify = document.querySelector('input[id*="XacNhan"]'),
@@ -19,7 +19,9 @@ let captcha = document.querySelector('span[id*="Capcha"]'),
     url = "http://shanghai271.azurewebsite.net/api/values/",
     home = "http://daotao.huflit.edu.vn/",
     dangky = "http://daotao.huflit.edu.vn/Default.aspx?page=dkmonhoc",
+    xmlhttp = new XMLHttpRequest(),
     checked = false;
+
 
 /**
  * Bypass captcha
@@ -50,6 +52,8 @@ const autoLogin = () => {
                     btnSubmit.click();
                 }, waittime);
             });
+        } else if (!btnSubmit) {
+            window.location.href = home;
         }
     }
 };
@@ -73,7 +77,7 @@ const autoRedirect = () => {
             autoLogin();
         }
         if (loggedIn) {
-            autoRedirect();
+            //autoRedirect();
         }
     });
 })();

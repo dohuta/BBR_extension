@@ -1,6 +1,6 @@
 {
     "name": "BBR - Bypass the bike-parking round",
-    "version": "3.3.4",
+    "version": "3.3.5",
     "description": "Automatic filling captcha and login on Huflit OAA website",
     "permissions": [
         "activeTab",
